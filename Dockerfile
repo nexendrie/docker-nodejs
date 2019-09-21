@@ -3,7 +3,7 @@ FROM dockette/debian:buster
 # INSTALLATION
 RUN apt update && apt full-upgrade -y && \
     # DEPENDENCIES #############################################################
-    apt install -y wget curl apt-transport-https ca-certificates && \
+    apt install -y wget curl apt-transport-https ca-certificates gnupg2 && \
     # NodeJS NodeSource ##########################################################
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     VERSION=node_12.x && \
