@@ -5,7 +5,7 @@ RUN apt update && apt full-upgrade -y && \
     # DEPENDENCIES #############################################################
     apt install -y wget curl apt-transport-https ca-certificates && \
     # NodeJS ##########################################################
-    snap install node --classic --channel=12
+    snap install node --classic --channel=12 && \
     npm install -g csslint && \
     # CLEAN UP #################################################################
     apt clean -y && \
