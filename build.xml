@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Nexendrie NodeJS docker image" basedir="." default="generate">
+  <target name="generate">
+    <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="install"/>
+      <arg value="--prefer-dist"/>
+      <arg value="--no-progress"/>
+      <arg value="--no-suggest"/>
+      <arg value="--no-interaction"/>
+    </exec>
+    <exec executable="vendor/bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="--ignoreFile"/>
+      <arg value="README.md"/>
+    </exec>
+  </target>
+</project>

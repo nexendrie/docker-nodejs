@@ -1,0 +1,97 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DEFAULT_VERSION: "12.x"
+
+.deploy_job: &deploy_job
+  stage: deploy
+
+  image: docker:latest
+
+  services:
+    - docker:dind
+
+  before_script:
+    - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+
+  script:
+    - sed -i -e "s/$DEFAULT_VERSION/$VERSION/g" Dockerfile
+    - docker build -t nexendrie/nodejs:$VERSION .
+    - docker push nexendrie/nodejs:$VERSION
+
+  only:
+    - master@nexendrie/docker-nodejs
+
+.build_job: &build_job
+  stage: build
+
+  image: docker:latest
+
+  services:
+    - docker:dind
+
+  script:
+    - sed -i -e "s/$DEFAULT_VERSION/$VERSION/g" Dockerfile
+    - docker build .
+
+  except:
+    - master@nexendrie/docker-nodejs
+
+deploy:nodejs8:
+  <<: *deploy_job
+  environment:
+    name: dockerhub
+    url: https://hub.docker.com/r/nexendrie/nodejs/
+  variables:
+    VERSION: "8.x"
+
+build:nodejs8:
+  <<: *build_job
+  variables:
+    VERSION: "8.x"
+
+deploy:nodejs10:
+  <<: *deploy_job
+  variables:
+    VERSION: "10.x"
+
+build:nodejs10:
+  <<: *build_job
+  variables:
+    VERSION: "10.x"
+
+deploy:nodejs12:
+  <<: *deploy_job
+  after_script:
+    - docker build -t nexendrie/nodejs:latest .
+    - docker push nexendrie/nodejs:latest
+  variables:
+    VERSION: "12.x"
+
+build:nodejs12:
+  <<: *build_job
+  variables:
+    VERSION: "12.x"
+
+pages:
+  stage: deploy
+  image: nexendrie/nodejs
+  environment:
+    name: pages
+    url: https://nexendrie.gitlab.io/docker-nodejs
+  script:
+    - phing generate
+  cache:
+    paths:
+      - vendor/
+  artifacts:
+    paths:
+      - public
+  only:
+    refs:
+      - master@nexendrie/docker-nodejs
+    changes:
+      - composer.lock
+      - index.*
