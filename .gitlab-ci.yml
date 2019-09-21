@@ -77,7 +77,7 @@ build:nodejs12:
 
 pages:
   stage: deploy
-  image: nexendrie/nodejs
+  image: nexendrie/php
   environment:
     name: pages
     url: https://nexendrie.gitlab.io/docker-nodejs
