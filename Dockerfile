@@ -9,7 +9,7 @@ RUN apt update && apt full-upgrade -y && \
     VERSION=node_12.x && \
     echo "deb https://deb.nodesource.com/$VERSION buster main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt update && \
-    apt install -y --no-install-recommends nodejs-dev node-gyp libssl1.0-dev && \
+    apt install -y --no-install-recommends nodejs-dev node-gyp libssl-dev && \
     apt install npm && \
     npm install -g csslint && \
     # CLEAN UP #################################################################

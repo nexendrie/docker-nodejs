@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DEFAULT_VERSION: "12.x"
+  DEFAULT_VERSION: "12"
 
 .deploy_job: &deploy_job
   stage: deploy
@@ -45,22 +45,22 @@ deploy:nodejs8:
     name: dockerhub
     url: https://hub.docker.com/r/nexendrie/nodejs/
   variables:
-    VERSION: "8.x"
+    VERSION: "8"
 
 build:nodejs8:
   <<: *build_job
   variables:
-    VERSION: "8.x"
+    VERSION: "8"
 
 deploy:nodejs10:
   <<: *deploy_job
   variables:
-    VERSION: "10.x"
+    VERSION: "10"
 
 build:nodejs10:
   <<: *build_job
   variables:
-    VERSION: "10.x"
+    VERSION: "10"
 
 deploy:nodejs12:
   <<: *deploy_job
@@ -68,12 +68,12 @@ deploy:nodejs12:
     - docker build -t nexendrie/nodejs:latest .
     - docker push nexendrie/nodejs:latest
   variables:
-    VERSION: "12.x"
+    VERSION: "12"
 
 build:nodejs12:
   <<: *build_job
   variables:
-    VERSION: "12.x"
+    VERSION: "12"
 
 pages:
   stage: deploy
