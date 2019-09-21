@@ -7,8 +7,7 @@ RUN apt update && apt full-upgrade -y && \
     # NodeJS NodeSource ##########################################################
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     VERSION=node_12.x && \
-    DISTRO="$(lsb_release -s -c)" && \
-    echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb https://deb.nodesource.com/$VERSION buster main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt update && \
     apt install -y --no-install-recommends  nodejs && \
     # CLEAN UP #################################################################
