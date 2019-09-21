@@ -10,7 +10,7 @@ RUN apt update && apt full-upgrade -y && \
     echo "deb https://deb.nodesource.com/$VERSION buster main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt update && \
     apt install -y --no-install-recommends nodejs node-gyp && \
-    apt install npm && \
+    apt install -y --no-install-recommends npm && \
     npm install -g csslint && \
     # CLEAN UP #################################################################
     apt clean -y && \
