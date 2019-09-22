@@ -6,6 +6,6 @@ Nexendrie NodeJS image
 
 Nexendrie PHP docker image for continuous integration.
 
-NodeJS versions: 8, 10, 11, 12
+NodeJS versions: 8, 10, 12
 
 Other stuff: csslint
