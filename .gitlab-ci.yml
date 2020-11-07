@@ -64,9 +64,6 @@ build:nodejs10:
 
 deploy:nodejs12:
   <<: *deploy_job
-  after_script:
-    - docker build -t nexendrie/nodejs:latest .
-    - docker push nexendrie/nodejs:latest
   variables:
     VERSION: "12"
 
@@ -74,6 +71,19 @@ build:nodejs12:
   <<: *build_job
   variables:
     VERSION: "12"
+     
+deploy:nodejs14:
+  <<: *deploy_job
+  after_script:
+    - docker build -t nexendrie/nodejs:latest .
+    - docker push nexendrie/nodejs:latest
+  variables:
+    VERSION: "14"
+
+build:nodejs14:
+  <<: *build_job
+  variables:
+    VERSION: "14"
 
 pages:
   stage: deploy
